@@ -13,10 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class) //TODO pure Unite test without Spring at all
 class CarServiceTest {
