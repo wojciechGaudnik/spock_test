@@ -15,13 +15,13 @@ public class CarController {
 	}
 
 	@GetMapping("/cars/{name}")
-	private Car getCar(@PathVariable String name) {
+	public Car getCar(@PathVariable String name) {
 		return carService.getCarDetails(name);
 	}
 
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	private void carNotFoundHandler(CarNotFoundException exception) {
+	public void carNotFoundHandler(CarNotFoundException exception) {
 
 	}
 }
