@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 //@WebMvcTest
 //@SpringBootTest
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @WebMvcTest(EmployeeController.class)
 class EmployeeControllerTest {
 
