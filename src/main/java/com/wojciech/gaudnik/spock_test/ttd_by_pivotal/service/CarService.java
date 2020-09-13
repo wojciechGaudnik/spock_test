@@ -15,7 +15,7 @@ public class CarService {
 		this.carRepository = carRepository;
 	}
 
-	@Cacheable(value = "cars", sync = true)
+	@Cacheable(value = "car", sync = true)
 	public Car getCarDetails(String name) {
 		System.out.println("-------------------------------------------");
 		var car = carRepository.findByName(name);
