@@ -2,6 +2,7 @@ package com.wojciech.gaudnik.spock_test.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wojciech.gaudnik.spock_test.model.Employee
+import com.wojciech.gaudnik.spock_test.model.EmployeeRepository
 import com.wojciech.gaudnik.spock_test.service.EmployeeService
 import org.mockito.Mock
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import spock.lang.Specification
+import spock.lang.Unroll
 
 import static groovy.json.JsonOutput.toJson
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -19,6 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 
+
+//https://allegro.tech/2018/04/Spring-WebMvcTest-with-Spock.html
 @WebMvcTest(controllers = [EmployeeController])
 class EmployeeControllerAllegroSpec extends Specification {
 
@@ -28,9 +32,16 @@ class EmployeeControllerAllegroSpec extends Specification {
     @MockBean
     EmployeeService employeeService
 
+//    @Autowired
+//    EmployeeService employeeService
+
+    @MockBean
+    EmployeeRepository employeeRepository
+
     @Autowired
     ObjectMapper objectMapper
 
+    @Unroll
     def "GetByNam"() {
         given:
         Map request = [
@@ -38,12 +49,16 @@ class EmployeeControllerAllegroSpec extends Specification {
         ]
         and:
         employeeService.getEmployeeByName("John") >> new Employee("John")
+//        employeeRepository.findByName("John") >> new Employee("John")
+
 
         when:
         def result = mockMvc.perform(get("/hello/employee")
                 .param("name", "John")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(request)))
+
+//        def result2 = doRequest(post("/hello/employee").contentType(MediaType.APPLICATION_JSON).content(toJson(request))).andReturn()
 
         then:
         result.andExpect(status().isOk())
@@ -54,6 +69,14 @@ class EmployeeControllerAllegroSpec extends Specification {
 //        result.andExpect(jsonPath('$.name').value('John'))
 //        result.andExpect(jsonPath('$.last_name').value('Wayne'))
 
+
+//        and:
+//        with (objectMapper.readValue(response.contentAsString, Map)) {
+//            it.registration_id == 'registration-id-1'
+//            it.email_address == 'john.wayne@gmail.com'
+//            it.name == 'John'
+//            it.last_name == 'Wayne'
+//        }
 
     }
 }
