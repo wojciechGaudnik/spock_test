@@ -4,27 +4,22 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.wojciech.gaudnik.spock_test.model.Employee
 import com.wojciech.gaudnik.spock_test.model.EmployeeRepository
 import com.wojciech.gaudnik.spock_test.service.EmployeeService
-import org.mockito.Mock
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import spock.lang.Specification
 import spock.lang.Unroll
 
 import static groovy.json.JsonOutput.toJson
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 
 
 //https://allegro.tech/2018/04/Spring-WebMvcTest-with-Spock.html
 @WebMvcTest(controllers = [EmployeeController])
-class EmployeeControllerAllegroSpec extends Specification {
+class EmployeeControllerAllegroSpecIT extends Specification {
 
     @Autowired
     protected MockMvc mockMvc
@@ -32,14 +27,8 @@ class EmployeeControllerAllegroSpec extends Specification {
     @MockBean
     EmployeeService employeeService
 
-//    @Autowired
-//    EmployeeService employeeService
-
     @MockBean
     EmployeeRepository employeeRepository
-
-    @Autowired
-    ObjectMapper objectMapper
 
     @Unroll
     def "GetByNam"() {
