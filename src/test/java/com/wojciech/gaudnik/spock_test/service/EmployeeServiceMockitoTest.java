@@ -12,9 +12,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.LinkedList;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.verify;
+import static org.mockito.Mockito.times;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -51,6 +53,24 @@ class EmployeeServiceTestSpec{
 
 		then(employeeRepository).should().findAll();
 		assertThat(result).isEqualTo(employs);
+	}
+
+	@Test
+	void FindByNameBDDTest(){
+		var em1 = Employee.builder().id(1L).name("test1").build();
+
+		//given
+		given(employeeRepository.findByName("test1")).willReturn(em1);
+
+		//when
+		var foundEmployee = employeeService.getEmployeeByName("test1");
+
+		//then
+		assertThat(foundEmployee).isNotNull();
+		verify(employeeRepository).findByName(anyString());
+		then(employeeRepository).should(times(1)).findByName(anyString());
+		then(employeeRepository).shouldHaveNoMoreInteractions();
+
 	}
 }
 
