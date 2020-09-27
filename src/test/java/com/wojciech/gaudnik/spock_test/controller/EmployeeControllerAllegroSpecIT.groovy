@@ -13,6 +13,9 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 import static groovy.json.JsonOutput.toJson
+import static org.mockito.ArgumentMatchers.anyString
+import static org.mockito.BDDMockito.then
+import static org.mockito.Mockito.times
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 
@@ -46,6 +49,17 @@ class EmployeeControllerAllegroSpecIT extends Specification {
                 .param("name", "John")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(request)))
+
+//        entityManager.find(Customer.class,1L) >> sampleCustomer
+//        ||   equivalent
+//        when(entityManager.find(Customer.class,1L)).thenReturn(sampleCustomer);
+
+
+//        then(employeeRepository).should(times(1)).findByName(anyString());
+//        verify(emailSender, times(1)).sendEmail(sampleCustomer);
+//        ||
+//        1 * employeeRepository.findByName(anyString())
+
 
 //        def result2 = doRequest(post("/hello/employee").contentType(MediaType.APPLICATION_JSON).content(toJson(request))).andReturn()
 
