@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.*;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceBDDTest {
 
-	@Mock
+	@Mock(lenient = true)
 	EmployeeRepository employeeRepository;
 
 	@InjectMocks
@@ -45,6 +45,27 @@ class EmployeeServiceBDDTest {
 		then(employeeRepository).shouldHaveNoMoreInteractions();
 		assertThat(result).isNotNull();
 	}
+
+	@Test
+	void testSavedLambdaMatchNoMatch() {
+		//given
+		final String MATCH_ME = "test";
+//		var employeeMatchedOrNot = Employee.builder().id(1L).name(MATCH_ME).build();  // <--- matched
+		var employeeMatchedOrNot = Employee.builder().id(1L).name("NO_MATCH_ME").build();  // <--- no matched
+		var employeeSaved = Employee.builder().id(1L).name(MATCH_ME).build();
+
+		//mock return only if name to save is the same as name return from mock
+		given(employeeRepository.save(argThat(argument -> argument.getName().equals(MATCH_ME)))).willReturn(employeeSaved);
+
+		//when
+		var resultEmployee = employeeService.save(employeeMatchedOrNot);
+
+		//then
+//		assertNotNull(resultEmployee);
+		assertNull(resultEmployee);
+
+	}
+
 
 	@Test
 	void testDoThrow() {
