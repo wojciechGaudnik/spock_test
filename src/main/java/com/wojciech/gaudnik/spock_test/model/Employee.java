@@ -1,5 +1,6 @@
 package com.wojciech.gaudnik.spock_test.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +34,9 @@ public class Employee {
 
 	@CreditCardNumber
 	private String secondName;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private String pass;
 
 }
    
