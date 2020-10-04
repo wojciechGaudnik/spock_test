@@ -1,5 +1,6 @@
 package com.wojciech.gaudnik.spock_test.ttd_by_pivotal.model;
 
+import com.wojciech.gaudnik.spock_test.model.Employee;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -13,6 +14,5 @@ import javax.persistence.Entity;
 public class Car extends BaseEntity{
 	private String name;
 	private String type;
-
 }
    

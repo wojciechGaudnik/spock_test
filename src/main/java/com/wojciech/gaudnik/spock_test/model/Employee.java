@@ -14,10 +14,10 @@ import javax.validation.constraints.Size;
 
 @Data
 @Builder
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "person")
+@Entity
 public class Employee {
 
 	public Employee(@Size(min = 3, max = 20) String name) {

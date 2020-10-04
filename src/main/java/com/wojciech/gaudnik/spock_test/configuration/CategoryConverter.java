@@ -2,7 +2,7 @@ package com.wojciech.gaudnik.spock_test.configuration;
 
 //package pl.com.enigma.centaurdat.admin.configuration;
 //
-//@Converter(autoApply = true)
+//@Converter(autoApply = true)  //todo this is for DB !!!
 //public class CategoryConverter implements AttributeConverter<Category, String> {
 //
 //	@Override
